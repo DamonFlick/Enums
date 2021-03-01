@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,15 @@ namespace Enumeration
 
         static void Main(string[] args)
         {
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
             try
             {
                 Console.WriteLine("Please enter the current day of the week");
-
-                Enum.TryParse(Console.ReadLine(), out daysOfTheWeek day);
+                string dayString = Console.ReadLine();
+                
+                dayString = textInfo.ToTitleCase(dayString);
+                daysOfTheWeek day = (daysOfTheWeek)Enum.Parse(typeof(daysOfTheWeek), dayString);
                 
                 
                 Console.WriteLine(day.ToString());
@@ -35,7 +40,7 @@ namespace Enumeration
                 Console.ReadLine();
 
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Console.WriteLine("Please enter an actual day of the week in english.");
                 Console.ReadLine();
